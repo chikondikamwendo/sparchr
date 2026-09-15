@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "720ba05efc0e0d0d078d766b0eacade2",
+    "content-hash": "8ad2cac784b88f09c796f16aa28d6bcc",
     "packages": [
         {
             "name": "brick/math",
@@ -4448,6 +4448,38 @@
                 "source": "https://github.com/Seldaek/signal-handler/tree/2.0.2"
             },
             "time": "2023-09-03T09:24:00+00:00"
+        },
+        {
+            "name": "sparc/vacancies",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "modules/vacancies",
+                "reference": "65233a5a92a9cc52d62eb74065d864bb86d4eb71"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sparc\\Vacancies\\Providers\\VacanciesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sparc\\Vacancies\\": "src/",
+                    "Sparc\\Vacancies\\Tests\\": "tests/",
+                    "Sparc\\Vacancies\\Database\\Factories\\": "database/factories/",
+                    "Sparc\\Vacancies\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/clock",
