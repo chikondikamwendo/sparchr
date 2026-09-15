@@ -1,0 +1,45 @@
+<?php
+
+namespace Sparc\Vacancies\Http\Requests;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+use Sparc\Vacancies\Models\Vacancy;
+
+class StoreVacancyRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'slug' => ['required', 'string', 'unique:vacancies'],
+            'title' => ['required', 'string'],
+            'brief' => ['required', 'string'],
+        ];
+    }
+
+    /**
+     * Stores a new Vacancy if validation passes.
+     */
+    public function persist(): Vacancy
+    {
+        return Vacancy::create([
+            'user_id' => $this->user()->id,
+            'slug' => $this->slug,
+            'title' => $this->title,
+            'brief' => $this->brief,
+        ]);
+    }
+}
