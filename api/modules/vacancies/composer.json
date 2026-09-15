@@ -1,0 +1,24 @@
+{
+	"name": "sparc/vacancies",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Sparc\\Vacancies\\": "src/",
+			"Sparc\\Vacancies\\Tests\\": "tests/",
+			"Sparc\\Vacancies\\Database\\Factories\\": "database/factories/",
+			"Sparc\\Vacancies\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Sparc\\Vacancies\\Providers\\VacanciesServiceProvider"
+			]
+		}
+	}
+}
