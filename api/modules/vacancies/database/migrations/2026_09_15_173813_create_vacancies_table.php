@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Sparc\Vacancies\Enums\Status;
 
 return new class extends Migration
 {
@@ -17,6 +18,8 @@ return new class extends Migration
             $table->text('slug')->unique();
             $table->text('title');
             $table->text('brief');
+            $table->string('status')->default(Status::DRAFT);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

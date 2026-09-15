@@ -27,6 +27,7 @@ class StoreVacancyRequest extends FormRequest
             'slug' => ['required', 'string', 'unique:vacancies'],
             'title' => ['required', 'string'],
             'brief' => ['required', 'string'],
+            'expires' => ['nullable', 'date'],
         ];
     }
 
@@ -40,6 +41,7 @@ class StoreVacancyRequest extends FormRequest
             'slug' => $this->slug,
             'title' => $this->title,
             'brief' => $this->brief,
+            'expires_at' => $this->expires,
         ]);
     }
 }

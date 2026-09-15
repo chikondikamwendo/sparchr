@@ -1,6 +1,9 @@
 <?php
 
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Date;
+use Sparc\Vacancies\Enums\Status;
 use Sparc\Vacancies\Models\Vacancy;
 
 $data = [
@@ -18,6 +21,7 @@ test('user can create a vacancy', function () use ($data) {
 
     $this->assertDatabaseHas(Vacancy::class, [
         'user_id' => $user->id,
+        'status' => Status::DRAFT,
         ...$data,
     ]);
 });
@@ -51,6 +55,21 @@ describe('validation', function () use ($data) {
         $response->assertJsonValidationErrors(['slug']);
 
         $this->assertDatabaseCount(Vacancy::class, 1);
+    });
+
+    test('can have an expiration date', function () use ($data) {
+        $user = User::factory()->create();
+        $expiration = Date::now()->addWeek();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies', [
+            ...$data,
+            'expires' => $expiration,
+        ],
+        );
+
+        $response->assertCreated();
+
+        expect(Carbon::make(Vacancy::first()->expires_at))->toEqual($expiration);
     });
 });
 

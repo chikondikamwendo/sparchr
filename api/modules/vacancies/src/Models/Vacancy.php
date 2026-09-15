@@ -2,11 +2,14 @@
 
 namespace Sparc\Vacancies\Models;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Sparc\Vacancies\Database\Factories\VacancyFactory;
+use Sparc\Vacancies\Enums\Status;
 
 /**
  * @property int $id
@@ -14,9 +17,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $slug
  * @property string $title
  * @property string $brief
+ * @property Status $status
+ * @property Carbon|null $expires_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * 
+ *
  * @method BelongsTo<User> user()
  * @method HasMany<Category> categories()
  * @method HasMany<Responsibility> responsibilities()
@@ -25,9 +30,29 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Vacancy extends Model
 {
-    /** @use HasFactory<\Sparc\Vacancies\Database\Factories\VacancyFactory> */
+    /** @use HasFactory<VacancyFactory> */
     use HasFactory;
 
     /** Attributes that are guarded */
     protected $guarded = [];
+
+    /**
+     * Get attributes that are casted.
+     *
+     * @return list<string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'status' => Status::class,
+        ];
+    }
+
+    /**
+     * Get the route binding key.
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }

@@ -5,9 +5,9 @@ namespace Sparc\Vacancies\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Sparc\Vacancies\Models\Vacancy;
 use Sparc\Vacancies\Http\Requests\StoreVacancyRequest;
 use Sparc\Vacancies\Http\Resources\VacancyResource;
+use Sparc\Vacancies\Models\Vacancy;
 
 class VacancyController
 {
