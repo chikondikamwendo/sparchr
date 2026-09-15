@@ -15,19 +15,51 @@ test('user can create a vacancy', function () use ($data) {
     $response = $this->actingAs($user)->postJson('/v1/vacancies', $data);
 
     $response->assertCreated();
-    
+
     $this->assertDatabaseHas(Vacancy::class, [
         'user_id' => $user->id,
         ...$data,
     ]);
 });
 
-describe('validation', function () {
-    todo('checks required fields');
-    todo('requires slug to be unique');
+describe('validation', function () use ($data) {
+    test('checks required fields', function () {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies');
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors([
+            'slug',
+            'title',
+            'brief',
+        ]);
+
+        $this->assertDatabaseEmpty(Vacancy::class);
+    });
+
+    test('requires slug to be unique', function () use ($data) {
+        $user = User::factory()->create();
+        $vacancy = Vacancy::factory()->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies', array_merge(
+            $data,
+            ['slug' => $vacancy->slug]
+        ));
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors(['slug']);
+
+        $this->assertDatabaseCount(Vacancy::class, 1);
+    });
 });
 
 describe('authentication & authorization', function () {
-    todo('requires user to be authenticated');
-    todo('requires create permission');
+    test('requires user to be authenticated', function () {
+        $response = $this->postJson('/v1/vacancies');
+
+        $response->assertUnauthorized();
+    });
+
+    todo('requires permission');
 });
