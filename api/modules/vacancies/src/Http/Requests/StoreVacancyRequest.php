@@ -2,6 +2,7 @@
 
 namespace Sparc\Vacancies\Http\Requests;
 
+use App\Models\Department;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Sparc\Vacancies\Models\Vacancy;
@@ -24,6 +25,7 @@ class StoreVacancyRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'department' => ['required', 'string', 'exists:departments,slug'],
             'slug' => ['required', 'string', 'unique:vacancies'],
             'title' => ['required', 'string'],
             'brief' => ['required', 'string'],
@@ -36,8 +38,11 @@ class StoreVacancyRequest extends FormRequest
      */
     public function persist(): Vacancy
     {
+        $this->department = (Department::firstWhere('slug', $this->department)->first('id'))->id;
+
         return Vacancy::create([
             'user_id' => $this->user()->id,
+            'department_id' => $this->department,
             'slug' => $this->slug,
             'title' => $this->title,
             'brief' => $this->brief,

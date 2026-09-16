@@ -7,6 +7,7 @@ use Sparc\Vacancies\Enums\Status;
 use Sparc\Vacancies\Models\Vacancy;
 
 $data = [
+    'department' => 'accounts',
     'slug' => 'test-vacancy',
     'title' => 'Test Vacancy',
     'brief' => 'This is a test vacancy',
@@ -21,8 +22,11 @@ test('user can create a vacancy', function () use ($data) {
 
     $this->assertDatabaseHas(Vacancy::class, [
         'user_id' => $user->id,
+        'department_id' => 1,
+        'slug' => $data['slug'],
+        'title' => $data['title'],
+        'brief' => $data['brief'],
         'status' => Status::DRAFT,
-        ...$data,
     ]);
 });
 

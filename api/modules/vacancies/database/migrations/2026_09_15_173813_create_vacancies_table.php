@@ -15,12 +15,17 @@ return new class extends Migration
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('department_id')->nullable()->constrained('departments')->nullOnDelete();
             $table->text('slug')->unique();
             $table->text('title');
             $table->text('brief');
             $table->string('status')->default(Status::DRAFT);
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
+
+            $table->index('user_id');
+            $table->index('department_id');
+            $table->index('status');
         });
     }
 

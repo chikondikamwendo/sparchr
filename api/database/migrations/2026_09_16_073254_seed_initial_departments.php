@@ -11,15 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::table('categories')->insert($this->getSeeds());
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
+        DB::table('departments')->insert($this->getSeeds());
     }
 
     /**

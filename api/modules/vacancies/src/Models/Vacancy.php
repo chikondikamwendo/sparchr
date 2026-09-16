@@ -2,6 +2,7 @@
 
 namespace Sparc\Vacancies\Models;
 
+use App\Models\Department;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ use Sparc\Vacancies\Enums\Status;
 /**
  * @property int $id
  * @property int $user_id
+ * @property int $department_id
  * @property string $slug
  * @property string $title
  * @property string $brief
@@ -23,7 +25,7 @@ use Sparc\Vacancies\Enums\Status;
  * @property Carbon $updated_at
  *
  * @method BelongsTo<User> user()
- * @method HasMany<Category> categories()
+ * @method BelongsTo<Department> department()
  * @method HasMany<Responsibility> responsibilities()
  * @method HasMany<Requirement> requirements()
  * @method HasMany<Qualification> qualifications()
@@ -64,5 +66,15 @@ class Vacancy extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Department vacancy is under.
+     *
+     * @return BelongsTo<Department, $this>
+     */
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
     }
 }
