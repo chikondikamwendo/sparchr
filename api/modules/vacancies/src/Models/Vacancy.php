@@ -55,4 +55,14 @@ class Vacancy extends Model
     {
         return 'slug';
     }
+
+    /**
+     * The user that created the vacancy.
+     * 
+     * @return BelongsTo<User, $this>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
