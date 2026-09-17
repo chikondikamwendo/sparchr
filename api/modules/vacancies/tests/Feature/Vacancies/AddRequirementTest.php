@@ -23,11 +23,45 @@ test('adds requirements to vacancy', function () use ($requirements) {
 });
 
 describe('validation', function () {
-    todo('requires requirements array');
-    todo('requires requirement title');
+    test('requires requirements array', function () {
+        $user = User::factory()->create();
+        $vacancy = Vacancy::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies/'.$vacancy->slug.'/requirements', [
+            'requirements' => [],
+        ]);
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors('requirements');
+
+        $this->assertDatabaseEmpty(Requirement::class);
+    });
+
+    test('requires requirement title', function () {
+        $user = User::factory()->create();
+        $vacancy = Vacancy::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies/'.$vacancy->slug.'/requirements', [
+            'requirements' => [
+                ['description' => 'This is a requirement description'],
+            ],
+        ]);
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors('requirements.0.title');
+
+        $this->assertDatabaseEmpty(Requirement::class);
+    });
 });
 
 describe('authorization & authentication', function () {
-    todo('requires authentication');
+    test('requires authentication', function () {
+        $response = $this->postJson('/v1/vacancies/test-vacancy/requirements');
+
+        $response->assertUnauthorized();
+
+        $this->assertDatabaseEmpty(Requirement::class);
+    });
+
     todo('requires permission');
 });
