@@ -77,4 +77,14 @@ class Vacancy extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    /**
+     * Responsibilities for this vacancy.
+     *
+     * @return HasMany<Responsibility, $this>
+     */
+    public function responsibilities(): HasMany
+    {
+        return $this->hasMany(Responsibility::class);
+    }
 }
