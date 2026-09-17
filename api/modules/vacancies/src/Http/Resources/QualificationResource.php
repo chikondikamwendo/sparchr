@@ -14,6 +14,12 @@ class QualificationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'field' => $this->field,
+            'description' => $this->description,
+            'level' => $this->level,
+            'required' => $this->required,
+        ];
     }
 }
