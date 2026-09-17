@@ -2,10 +2,14 @@
 
 namespace Sparc\Vacancies\Http\Controllers;
 
+use App\Http\Resources\DepartmentResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Sparc\Vacancies\Http\Requests\StoreVacancyRequest;
+use Sparc\Vacancies\Http\Resources\QualificationResource;
+use Sparc\Vacancies\Http\Resources\RequirementResource;
+use Sparc\Vacancies\Http\Resources\ResponsibilityResource;
 use Sparc\Vacancies\Http\Resources\VacancyResource;
 use Sparc\Vacancies\Models\Vacancy;
 
@@ -47,9 +51,15 @@ class VacancyController
     /**
      * Display the specified resource.
      */
-    public function show(Vacancy $vacancy)
+    public function show(Request $request, Vacancy $vacancy): JsonResponse
     {
-        //
+        return Response::json([
+            ...VacancyResource::make($vacancy)->jsonSerialize(),
+            'department' => DepartmentResource::make($vacancy->department),
+            'responsibilities' => ResponsibilityResource::collection($vacancy->responsibilities),
+            'requirements' => RequirementResource::collection($vacancy->requirements),
+            'qualifications' => QualificationResource::collection($vacancy->qualifications),
+        ]);
     }
 
     /**

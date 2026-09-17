@@ -7,7 +7,9 @@ use Sparc\Vacancies\Http\Controllers\ResponsibilityController;
 use Sparc\Vacancies\Http\Controllers\VacancyController;
 
 Route::middleware(['api', 'auth:sanctum'])->prefix('v1/vacancies')->group(function () {
-    Route::resource('/', VacancyController::class)->only(['store', 'index']);
+    Route::resource('', VacancyController::class)
+        ->parameter('', 'vacancy')
+        ->only(['store', 'index', 'show']);
 
     Route::prefix('/{vacancy}')->group(function () {
         Route::resource('/responsibilities', ResponsibilityController::class)->only(['store']);

@@ -14,6 +14,14 @@ class VacancyResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'slug' => $this->slug,
+            'title' => $this->title,
+            'brief' => $this->brief,
+            'status' => $this->status,
+            'expires_at' => $this->expires_at,
+            'created_at' => $this->created_at,
+        ];
     }
 }
