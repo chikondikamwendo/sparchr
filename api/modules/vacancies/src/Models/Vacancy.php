@@ -97,4 +97,14 @@ class Vacancy extends Model
     {
         return $this->hasMany(Requirement::class);
     }
+
+    /**
+     * Vacancy qualifications.
+     *
+     * @return HasMany<Qualification, $this>
+     */
+    public function qualifications(): HasMany
+    {
+        return $this->hasMany(Qualification::class);
+    }
 }
