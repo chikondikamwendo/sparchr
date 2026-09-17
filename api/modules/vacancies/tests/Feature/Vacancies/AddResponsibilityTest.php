@@ -23,11 +23,43 @@ test('adds responsibility to vacancy', function () use ($responsibilites) {
 });
 
 describe('validation', function () {
-    todo('requires responsibilities array');
-    todo('requires responsibility title');
+    test('requires responsibilities array', function () {
+        $user = User::factory()->create();
+        $vacancy = Vacancy::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies/'.$vacancy->slug.'/responsibilities');
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors('responsibilities');
+
+        $this->assertDatabaseEmpty(Responsibility::class);
+    });
+
+    test('requires responsibility title', function () {
+        $user = User::factory()->create();
+        $vacancy = Vacancy::factory()->for($user)->create();
+
+        $response = $this->actingAs($user)->postJson('/v1/vacancies/'.$vacancy->slug.'/responsibilities', [
+            'responsibilities' => [
+                ['description' => 'This is a responsibility description'],
+            ],
+        ]);
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors('responsibilities.0.title');
+
+        $this->assertDatabaseEmpty(Responsibility::class);
+    });
 });
 
 describe('authentication & authorization', function () {
-    todo('requires authentication');
+    test('requires authentication', function () {
+        $response = $this->postJson('/v1/vacancies/test-vacancy/responsibilities');
+
+        $response->assertUnauthorized();
+
+        $this->assertDatabaseEmpty(Responsibility::class);
+    });
+
     todo('requires permission');
 });

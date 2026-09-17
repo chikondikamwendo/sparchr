@@ -27,8 +27,7 @@ class StoreResponsibilityRequest extends FormRequest
     {
         return [
             'responsibilities' => ['required', 'array'],
-            'responsibilities.*' => ['array'],
-            'responsibilities.*.title' => ['required', 'string'],
+            'responsibilities.*.title' => ['required', 'string', 'max:255'],
             'responsibilities.*.description' => ['nullable', 'string'],
         ];
     }
