@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('department_id')->nullable()->constrained('departments')->nullOnDelete();
-            $table->text('slug')->unique();
+            $table->string('slug', 255)->unique();
             $table->text('title');
             $table->text('brief');
             $table->string('status')->default(Status::DRAFT);
