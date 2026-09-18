@@ -10,6 +10,7 @@ describe('validation', function () {
     todo('requires date of birth');
     todo('requires bio');
     todo('requires experiences');
+    todo('requires skills');
     todo('requires qualifications');
     todo('rejects late submission');
 });
