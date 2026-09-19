@@ -1,11 +1,79 @@
 <?php
 
-todo('creates an application to a vacancy');
+use Sparc\Vacancies\Enums\QualificationLevel;
+use Sparc\Vacancies\Models\Application;
+use Sparc\Vacancies\Models\Qualification;
+use Sparc\Vacancies\Models\Requirement;
+use Sparc\Vacancies\Models\Responsibility;
+use Sparc\Vacancies\Models\Vacancy;
+
+$body = [
+    'name' => 'Jane Doe',
+    'email' => 'jane@example.com',
+    'gender' => 'Female',
+    'date_of_birth' => '19-09-1999',
+    'bio' => 'Hard working self motivated girl.',
+    'experiences' => [
+        [
+            'institution' => 'Acme Corp',
+            'started_at' => '09-2023',
+            'ended_at' => '09-2024',
+            'position' => 'Software Developer',
+            'responsibilities' => [
+                'Develop backend systems',
+                'Develop API sdk\'s',
+            ],
+            'achievements' => [
+                'Deployed a self healing cloud dev env',
+            ],
+        ],
+    ],
+    'skills' => [
+        'API development',
+        'Infrastructure as code',
+        'DevOps',
+    ],
+    'qualifications' => [
+        [
+            'field' => 'ICT',
+            'level' => QualificationLevel::DEGREE,
+            'year' => '2016',
+            'institution' => 'University of Code',
+        ],
+    ],
+];
+
+function createVacancy(): Vacancy
+{
+    $vacancy = Vacancy::factory()->create();
+
+    Qualification::factory()->for($vacancy)->count(2)->create();
+    Responsibility::factory()->for($vacancy)->count(3)->create();
+    Requirement::factory()->for($vacancy)->count(3)->create();
+
+    return $vacancy;
+}
+
+test('creates an application to a vacancy', function () use ($body) {
+    $vacancy = createVacancy();
+
+    $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+
+    $response->assertCreated();
+
+    $this->assertDatabaseCount(Application::class, 1);
+    $this->assertDatabaseCount(Qualification::class, 3);
+    $this->assertDatabaseCount(Responsibility::class, 5);
+    $this->assertDatabaseCount(Experience::class, 1);
+    $this->assertDatabaseCount(Achievement::class, 1);
+    $this->assertDatabaseCount(Skill::class, 3);
+});
 
 describe('validation', function () {
     todo('requires name');
     todo('requires email');
     todo('requires email to be unique');
+    todo('email has to be unique for a single vacancy');
     todo('requires gender');
     todo('requires date of birth');
     todo('requires bio');

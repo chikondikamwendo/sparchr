@@ -29,6 +29,7 @@ use Sparc\Vacancies\Enums\Status;
  * @method HasMany<Responsibility> responsibilities()
  * @method HasMany<Requirement> requirements()
  * @method HasMany<Qualification> qualifications()
+ * @method HasMany<Application> applications()
  */
 class Vacancy extends Model
 {
@@ -106,5 +107,15 @@ class Vacancy extends Model
     public function qualifications(): HasMany
     {
         return $this->hasMany(Qualification::class);
+    }
+
+    /**
+     * Vacancy applications.
+     *
+     * @return HasMany<Application, $this>
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 }
