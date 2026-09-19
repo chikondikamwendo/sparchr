@@ -10,9 +10,9 @@ use Sparc\Vacancies\Models\Vacancy;
 final readonly class CreateApplicationProps
 {
     /**
-     * @param Collection<int, array> $experiences
-     * @param Collection<int, string> $skills
-     * @param Collection<int, array> $qualifications
+     * @param  Collection<int, array>  $experiences
+     * @param  Collection<int, string>  $skills
+     * @param  Collection<int, array>  $qualifications
      */
     public function __construct(
         public Vacancy $vacancy,

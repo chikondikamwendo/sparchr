@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Sparc\Vacancies\Database\Factories\ExperienceFactory;
 
 /**
  * @property int $id
@@ -16,14 +17,14 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property string $position
  * @property Carbon $started_at
  * @property Carbon|null $ended_at
- * 
+ *
  * @method BelongsTo<Application> application()
  * @method MorphMany<Responsibility> responsibilities()
  * @method HasMany<Achievement> achievements()
  */
 class Experience extends Model
 {
-    /** @use HasFactory<\Sparc\Vacancies\Database\Factories\ExperienceFactory> */
+    /** @use HasFactory<ExperienceFactory> */
     use HasFactory;
 
     /** Attributes that are guarded */
@@ -31,7 +32,7 @@ class Experience extends Model
 
     /**
      * Application experience belongs to.
-     * 
+     *
      * @return BelongsTo<Application, $this>
      */
     public function application(): BelongsTo
@@ -41,7 +42,7 @@ class Experience extends Model
 
     /**
      * Expierence responsibilites.
-     * 
+     *
      * @return MorphMany<Responsibility, $this>
      */
     public function responsibilities(): MorphMany
@@ -51,7 +52,7 @@ class Experience extends Model
 
     /**
      * Experience achievements.
-     * 
+     *
      * @return HasMany<Achievement, $this>
      */
     public function achievements(): HasMany

@@ -44,6 +44,8 @@ class StoreApplicationRequest extends FormRequest
             'expiriences.*.responsibilities' => ['required', 'array'],
             'expiriences.*.achievements' => ['required', 'array:title'],
             'skills' => ['required', 'array'],
+            'skills.*.title' => ['required', 'string'],
+            'skills.*.description' => ['nullable', 'string'],
             'qualifications' => ['required', 'array'],
             'qualifications.*.field' => ['required', 'string'],
             'qualifications.*.level' => ['required', Rule::enum(Level::class)],

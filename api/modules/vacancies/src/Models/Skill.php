@@ -6,33 +6,33 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Sparc\Vacancies\Database\Factories\AchievementFactory;
+use Sparc\Vacancies\Database\Factories\SkillFactory;
 
 /**
  * @property int $id
- * @property int $experience_id
+ * @property int $application_id
  * @property string $title
  * @property string|null $description
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @method BelongsTo<Experience> experience()
+ * @method BelongsTo<Application> application()
  */
-class Achievement extends Model
+class Skill extends Model
 {
-    /** @use HasFactory<AchievementFactory> */
+    /** @use HasFactory<SkillFactory> */
     use HasFactory;
 
     /** Attributes that are guarded */
     protected $guarded = [];
 
     /**
-     * Experience achievement belongs to.
+     * Application skills belong to.
      *
-     * @return BelongsTo<Experience, $this>
+     * @return BelongsTo<Application, $this>
      */
-    public function experience(): BelongsTo
+    public function application(): BelongsTo
     {
-        return $this->belongsTo(Experience::class);
+        return $this->belongsTo(Application::class);
     }
 }

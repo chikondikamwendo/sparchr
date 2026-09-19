@@ -46,6 +46,10 @@ final class CreateApplication
                 });
             });
 
+            $props->skills->each(function (array $skill) use ($application) {
+                $application->skills()->create($skill);
+            });
+
             return $application;
         });
 

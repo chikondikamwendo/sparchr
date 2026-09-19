@@ -55,7 +55,7 @@ class Application extends Model
 
     /**
      * Applicants qualifications.
-     * 
+     *
      * @return MorphMany<Qualification, $this>
      */
     public function qualifications(): MorphMany
@@ -65,11 +65,21 @@ class Application extends Model
 
     /**
      * Applicants experiences.
-     * 
+     *
      * @return HasMany<Experience, $this>
      */
     public function experiences(): HasMany
     {
         return $this->hasMany(Experience::class);
+    }
+
+    /**
+     * Applicants skills.
+     *
+     * @return HasMany<Skill, $this>
+     */
+    public function skills(): HasMany
+    {
+        return $this->hasMany(Skill::class);
     }
 }

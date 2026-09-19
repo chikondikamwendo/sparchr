@@ -5,7 +5,6 @@ namespace Sparc\Vacancies\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Sparc\Vacancies\Database\Factories\ResponsibilityFactory;
 
@@ -28,7 +27,6 @@ class Responsibility extends Model
     /** Attributes that are guarded */
     protected $guarded = [];
 
-    /** @return MorphTo */
     public function responsibilitable(): MorphTo
     {
         return $this->morphTo();

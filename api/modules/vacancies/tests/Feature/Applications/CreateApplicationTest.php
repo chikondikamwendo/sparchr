@@ -7,6 +7,7 @@ use Sparc\Vacancies\Models\Experience;
 use Sparc\Vacancies\Models\Qualification;
 use Sparc\Vacancies\Models\Requirement;
 use Sparc\Vacancies\Models\Responsibility;
+use Sparc\Vacancies\Models\Skill;
 use Sparc\Vacancies\Models\Vacancy;
 
 $body = [
@@ -31,9 +32,9 @@ $body = [
         ],
     ],
     'skills' => [
-        'API development',
-        'Infrastructure as code',
-        'DevOps',
+        ['title' => 'API development'],
+        ['title' => 'Infrastructure as code'],
+        ['title' => 'DevOps'],
     ],
     'qualifications' => [
         [
