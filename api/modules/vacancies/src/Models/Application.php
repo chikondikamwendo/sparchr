@@ -20,6 +20,8 @@ use Sparc\Vacancies\Enums\ApplicationStatus as Status;
  * @property string $email
  * @property string $bio
  * @property Status $status
+ * @property int|null $score
+ * @property string|null $remarks
  * @property Carbon $date_of_birth
  * @property Carbon $created_at
  * @property Carbon $updated_at

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('bio');
             $table->string('email');
             $table->string('status')->default(Status::PENDING_SCORE);
+            $table->integer('score')->nullable();
+            $table->text('remarks')->nullable();
             $table->date('date_of_birth');
             $table->timestamps();
 
