@@ -3,7 +3,9 @@
 namespace Sparc\Vacancies\Actions;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Sparc\Vacancies\Data\CreateApplicationProps;
+use Sparc\Vacancies\Mail\ApplicationReceived;
 use Sparc\Vacancies\Models\Application;
 
 final class CreateApplication
@@ -48,6 +50,17 @@ final class CreateApplication
 
             $props->skills->each(function (array $skill) use ($application) {
                 $application->skills()->create($skill);
+            });
+
+            $vacancy = $props->vacancy;
+
+            defer(function () use ($vacancy, $application) {
+                $applicantName = $application->name;
+                $applicantEmail = $application->email;
+
+                Mail::to($applicantEmail, $applicantName)->send(
+                    new ApplicationReceived($vacancy, $applicantName)
+                );
             });
 
             return $application;

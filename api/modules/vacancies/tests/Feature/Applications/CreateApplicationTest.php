@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Mail;
 use Sparc\Vacancies\Enums\QualificationLevel;
+use Sparc\Vacancies\Mail\ApplicationReceived;
 use Sparc\Vacancies\Models\Achievement;
 use Sparc\Vacancies\Models\Application;
 use Sparc\Vacancies\Models\Experience;
@@ -114,7 +116,20 @@ describe('validation', function () use ($body) {
     });
 });
 
-describe('pipeline', function () {
-    todo('sends email to acknowledge receipt');
+describe('pipeline', function () use ($body) {
+    test('sends email to acknowledge receipt', function () use ($body) {
+        Mail::fake();
+
+        $vacancy = Vacancy::factory()->create();
+
+        Application::factory()->create(['email' => $body['email']]);
+
+        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+
+        $response->assertCreated();
+
+        Mail::assertQueued(ApplicationReceived::class);
+    });
+
     todo('scores application');
 });
