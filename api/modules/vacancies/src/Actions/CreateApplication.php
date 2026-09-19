@@ -37,10 +37,8 @@ final class CreateApplication
                     'ended_at' => $experience['ended_at'],
                 ]);
 
-                $responsibilites->each(function (string $responsibility) use ($experience) {
-                    $experience->responsibilities()->create([
-                        'title' => $responsibility,
-                    ]);
+                $responsibilites->each(function (array $responsibility) use ($experience) {
+                    $experience->responsibilities()->create($responsibility);
                 });
 
                 $achievements->each(function (array $achievement) use ($experience) {

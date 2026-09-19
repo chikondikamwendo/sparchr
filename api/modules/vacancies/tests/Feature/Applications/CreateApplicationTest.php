@@ -22,8 +22,8 @@ $body = [
             'ended_at' => '09-2024',
             'position' => 'Software Developer',
             'responsibilities' => [
-                'Develop backend systems',
-                'Develop API sdk\'s',
+                ['title' => 'Develop backend systems'],
+                ['title' => 'Develop API sdk\'s'],
             ],
             'achievements' => [
                 ['title' => 'Deployed a self healing cloud dev env'],
