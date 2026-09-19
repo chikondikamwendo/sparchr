@@ -5,18 +5,19 @@ namespace Sparc\Vacancies\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Sparc\Vacancies\Database\Factories\ResponsibilityFactory;
 
 /**
  * @property int $id
- * @property int $vacancy_id
+ * @property int $responsibilitable_id
+ * @property string $responsibilitable_type
  * @property string $title
  * @property string|null $description
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @method BelongsTo<Vacancy> vacancy()
+ * @method MorphTo responsibilitable()
  */
 class Responsibility extends Model
 {
@@ -26,13 +27,8 @@ class Responsibility extends Model
     /** Attributes that are guarded */
     protected $guarded = [];
 
-    /**
-     * The Vacancy this responsibility belongs to.
-     *
-     * @return BelongsTo<Vacancy, $this>
-     */
-    public function vacancy(): BelongsTo
+    public function responsibilitable(): MorphTo
     {
-        return $this->belongsTo(Vacancy::class);
+        return $this->morphTo();
     }
 }

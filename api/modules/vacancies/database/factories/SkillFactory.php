@@ -3,13 +3,13 @@
 namespace Sparc\Vacancies\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Sparc\Vacancies\Models\Responsibility;
-use Sparc\Vacancies\Models\Vacancy;
+use Sparc\Vacancies\Models\Application;
+use Sparc\Vacancies\Models\Skill;
 
 /**
- * @extends Factory<Responsibility>
+ * @extends Factory<Skill>
  */
-class ResponsibilityFactory extends Factory
+class SkillFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,7 @@ class ResponsibilityFactory extends Factory
     public function definition(): array
     {
         return [
-            'responsibilitable_id' => Vacancy::factory(),
-            'responsibilitable_type' => Vacancy::class,
+            'application_id' => Application::factory(),
             'title' => fake()->sentence(),
             'description' => fake()->sentences(asText: true),
         ];

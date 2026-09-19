@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Sparc\Vacancies\Database\Factories\VacancyFactory;
 use Sparc\Vacancies\Enums\Status;
 
@@ -26,9 +27,10 @@ use Sparc\Vacancies\Enums\Status;
  *
  * @method BelongsTo<User> user()
  * @method BelongsTo<Department> department()
- * @method HasMany<Responsibility> responsibilities()
  * @method HasMany<Requirement> requirements()
- * @method HasMany<Qualification> qualifications()
+ * @method HasMany<Application> applications()
+ * @method MorphMany<Responsibility> responsibilities()
+ * @method MorphMany<Qualification> qualifications()
  */
 class Vacancy extends Model
 {
@@ -81,11 +83,11 @@ class Vacancy extends Model
     /**
      * Responsibilities for this vacancy.
      *
-     * @return HasMany<Responsibility, $this>
+     * @return MorphMany<Responsibility, $this>
      */
-    public function responsibilities(): HasMany
+    public function responsibilities(): MorphMany
     {
-        return $this->hasMany(Responsibility::class);
+        return $this->morphMany(Responsibility::class, 'responsibilitable');
     }
 
     /**
@@ -101,10 +103,20 @@ class Vacancy extends Model
     /**
      * Vacancy qualifications.
      *
-     * @return HasMany<Qualification, $this>
+     * @return MorphMany<Qualification, $this>
      */
-    public function qualifications(): HasMany
+    public function qualifications(): MorphMany
     {
-        return $this->hasMany(Qualification::class);
+        return $this->morphMany(Qualification::class, 'qualificationable');
+    }
+
+    /**
+     * Vacancy applications.
+     *
+     * @return HasMany<Application, $this>
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 }

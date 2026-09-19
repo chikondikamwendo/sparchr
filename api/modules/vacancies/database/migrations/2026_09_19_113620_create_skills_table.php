@@ -11,19 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('qualifications', function (Blueprint $table) {
+        Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->morphs('qualificationable');
-            $table->string('field');
-            $table->string('level');
-            $table->string('institution')->nullable();
+            $table->foreignId('application_id')->constrained('applications')->cascadeOnDelete();
+            $table->string('title');
             $table->text('description')->nullable();
-            $table->boolean('required')->nullable();
-            $table->year('year')->nullable();
             $table->timestamps();
 
-            $table->index('field');
-            $table->index('level');
+            $table->index('application_id');
         });
     }
 
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('qualifications');
+        Schema::dropIfExists('skills');
     }
 };

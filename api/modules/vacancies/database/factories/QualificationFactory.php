@@ -20,7 +20,8 @@ class QualificationFactory extends Factory
     public function definition(): array
     {
         return [
-            'vacancy_id' => Vacancy::factory(),
+            'qualificationable_id' => Vacancy::factory(),
+            'qualificationable_type' => Vacancy::class,
             'field' => fake()->randomElement(['ICT', 'Accounting']),
             'level' => fake()->randomElement(QualificationLevel::cases()),
             'required' => fake()->boolean(),

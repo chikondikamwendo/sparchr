@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Sparc\Vacancies\Http\Controllers\ApplicationController;
 use Sparc\Vacancies\Http\Controllers\QualificationController;
 use Sparc\Vacancies\Http\Controllers\RequirementController;
 use Sparc\Vacancies\Http\Controllers\ResponsibilityController;
@@ -16,4 +17,8 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('v1/vacancies')->group(functi
         Route::resource('/requirements', RequirementController::class)->only(['store']);
         Route::resource('/qualifications', QualificationController::class)->only(['store']);
     });
+});
+
+Route::middleware(['api'])->prefix('v1/vacancies')->group(function () {
+    Route::post('/{vacancy}/applications', [ApplicationController::class, 'store']);
 });

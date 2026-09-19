@@ -3,13 +3,13 @@
 namespace Sparc\Vacancies\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Sparc\Vacancies\Models\Responsibility;
-use Sparc\Vacancies\Models\Vacancy;
+use Sparc\Vacancies\Models\Achievement;
+use Sparc\Vacancies\Models\Experience;
 
 /**
- * @extends Factory<Responsibility>
+ * @extends Factory<Achievement>
  */
-class ResponsibilityFactory extends Factory
+class AchievementFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,7 @@ class ResponsibilityFactory extends Factory
     public function definition(): array
     {
         return [
-            'responsibilitable_id' => Vacancy::factory(),
-            'responsibilitable_type' => Vacancy::class,
+            'experience_id' => Experience::factory(),
             'title' => fake()->sentence(),
             'description' => fake()->sentences(asText: true),
         ];
