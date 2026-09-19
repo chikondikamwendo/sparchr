@@ -5,21 +5,24 @@ namespace Sparc\Vacancies\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Sparc\Vacancies\Database\Factories\QualificationFactory;
 use Sparc\Vacancies\Enums\QualificationLevel as Level;
 
 /**
  * @property int $id
- * @property int $vacancy_id
+ * @property int $qualificationable_id
+ * @property string $qualificationable_type
  * @property string $field
- * @property string|null $description
  * @property Level $level
- * @property bool $required
+ * @property string|null $institution
+ * @property string|null $description
+ * @property bool|null $required
+ * @property int|null $year
  * @property Carbon $created_at
  * @property Carbon $updated_at
  *
- * @method BelongsTo<Vacancy> vacancy()
+ * @method MorphTo qualificationable()
  */
 class Qualification extends Model
 {
@@ -39,13 +42,8 @@ class Qualification extends Model
         ];
     }
 
-    /**
-     * Vacancy qualification belongs to.
-     *
-     * @return BelongsTo<Vacancy, $this>
-     */
-    public function vacancy(): BelongsTo
+    public function qualificationable(): MorphTo
     {
-        return $this->belongsTo(Vacancy::class);
+        return $this->morphTo();
     }
 }

@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacancy_id')->constrained('vacancies')->cascadeOnDelete();
+            $table->morphs('qualificationable');
             $table->string('field');
-            $table->text('description')->nullable();
             $table->string('level');
-            $table->boolean('required');
+            $table->string('institution')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('required')->nullable();
+            $table->year('year')->nullable();
             $table->timestamps();
 
             $table->index('vacancy_id');

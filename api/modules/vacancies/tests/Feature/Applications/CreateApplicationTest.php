@@ -47,7 +47,11 @@ function createVacancy(): Vacancy
 {
     $vacancy = Vacancy::factory()->create();
 
-    Qualification::factory()->for($vacancy)->count(2)->create();
+    Qualification::factory()->count(2)->create([
+        'qualificationable_id' => $vacancy->id,
+        'qualificationable_type' => Vacancy::class,
+    ]);
+
     Responsibility::factory()->for($vacancy)->count(3)->create();
     Requirement::factory()->for($vacancy)->count(3)->create();
 

@@ -13,7 +13,10 @@ test('shows a vacancy with all info', function () {
 
     Requirement::factory()->for($vacancy)->count(4)->create();
     Responsibility::factory()->for($vacancy)->count(5)->create();
-    Qualification::factory()->for($vacancy)->count(3)->create();
+    Qualification::factory()->count(3)->create([
+        'qualificationable_id' => $vacancy->id,
+        'qualificationable_type' => Vacancy::class,
+    ]);
 
     $response = $this->actingAs($user)->getJson('/v1/vacancies/'.$vacancy->slug);
 

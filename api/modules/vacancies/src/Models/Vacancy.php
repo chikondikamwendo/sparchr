@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Sparc\Vacancies\Database\Factories\VacancyFactory;
 use Sparc\Vacancies\Enums\Status;
 
@@ -28,7 +29,7 @@ use Sparc\Vacancies\Enums\Status;
  * @method BelongsTo<Department> department()
  * @method HasMany<Responsibility> responsibilities()
  * @method HasMany<Requirement> requirements()
- * @method HasMany<Qualification> qualifications()
+ * @method MorphMany<Qualification> qualifications()
  * @method HasMany<Application> applications()
  */
 class Vacancy extends Model
@@ -102,11 +103,11 @@ class Vacancy extends Model
     /**
      * Vacancy qualifications.
      *
-     * @return HasMany<Qualification, $this>
+     * @return MorphMany<Qualification, $this>
      */
-    public function qualifications(): HasMany
+    public function qualifications(): MorphMany
     {
-        return $this->hasMany(Qualification::class);
+        return $this->morphMany(Qualification::class, 'qualificationable');
     }
 
     /**
