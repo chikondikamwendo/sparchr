@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * 
  * @method BelongsTo<Application> application()
  * @method MorphMany<Responsibility> responsibilities()
- * @method HasMany achievements()
+ * @method HasMany<Achievement> achievements()
  */
 class Experience extends Model
 {
@@ -47,5 +47,15 @@ class Experience extends Model
     public function responsibilities(): MorphMany
     {
         return $this->morphMany(Responsibility::class, 'responsibilitable');
+    }
+
+    /**
+     * Experience achievements.
+     * 
+     * @return HasMany<Achievement, $this>
+     */
+    public function achievements(): HasMany
+    {
+        return $this->hasMany(Achievement::class);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Sparc\Vacancies\Enums\QualificationLevel;
+use Sparc\Vacancies\Models\Achievement;
 use Sparc\Vacancies\Models\Application;
 use Sparc\Vacancies\Models\Experience;
 use Sparc\Vacancies\Models\Qualification;
@@ -25,7 +26,7 @@ $body = [
                 'Develop API sdk\'s',
             ],
             'achievements' => [
-                'Deployed a self healing cloud dev env',
+                ['title' => 'Deployed a self healing cloud dev env'],
             ],
         ],
     ],

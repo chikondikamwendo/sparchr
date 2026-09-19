@@ -42,6 +42,10 @@ final class CreateApplication
                         'title' => $responsibility,
                     ]);
                 });
+
+                $achievements->each(function (array $achievement) use ($experience) {
+                    $experience->achievements()->create($achievement);
+                });
             });
 
             return $application;

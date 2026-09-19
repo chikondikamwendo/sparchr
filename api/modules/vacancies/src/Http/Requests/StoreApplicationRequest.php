@@ -42,7 +42,7 @@ class StoreApplicationRequest extends FormRequest
             'expiriences.*.started_at' => ['required', Rule::date()->format('m-Y')],
             'expiriences.*.ended_at' => ['nullable', Rule::date()->format('m-Y')],
             'expiriences.*.responsibilities' => ['required', 'array'],
-            'expiriences.*.achievements' => ['required', 'array'],
+            'expiriences.*.achievements' => ['required', 'array:title'],
             'skills' => ['required', 'array'],
             'qualifications' => ['required', 'array'],
             'qualifications.*.field' => ['required', 'string'],
