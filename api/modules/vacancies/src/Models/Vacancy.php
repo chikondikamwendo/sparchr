@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Sparc\Vacancies\Database\Factories\VacancyFactory;
-use Sparc\Vacancies\Enums\Status;
+use Sparc\Vacancies\Enums\VacancyStatus;
 
 /**
  * @property int $id
@@ -20,7 +20,7 @@ use Sparc\Vacancies\Enums\Status;
  * @property string $slug
  * @property string $title
  * @property string $brief
- * @property Status $status
+ * @property VacancyStatus $status
  * @property Carbon|null $expires_at
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -48,7 +48,7 @@ class Vacancy extends Model
     protected function casts(): array
     {
         return [
-            'status' => Status::class,
+            'status' => VacancyStatus::class,
         ];
     }
 

@@ -2,7 +2,7 @@
 
 namespace Sparc\Vacancies\Enums;
 
-enum Status: string
+enum VacancyStatus: string
 {
     case DRAFT = 'Draft';
     case OPEN = 'Open';
