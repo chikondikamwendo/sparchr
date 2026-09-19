@@ -5,8 +5,10 @@ namespace Sparc\Vacancies\Http\Requests;
 use App\Enums\Gender;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
 use Sparc\Vacancies\Actions\CreateApplication;
 use Sparc\Vacancies\Data\CreateApplicationProps;
@@ -69,6 +71,10 @@ class StoreApplicationRequest extends FormRequest
      */
     public function persist(CreateApplication $action, Vacancy $vacancy): Application
     {
+        if ($vacancy->expires_at && Date::now()->isAfter($vacancy->expires_at)) {
+            throw new ModelNotFoundException('Vacancy not found or expired');
+        }
+
         return $action->handle(new CreateApplicationProps(
             $vacancy,
             $this->name,

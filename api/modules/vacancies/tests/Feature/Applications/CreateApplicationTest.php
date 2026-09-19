@@ -1,11 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Date;
 use Sparc\Vacancies\Enums\QualificationLevel;
 use Sparc\Vacancies\Models\Achievement;
 use Sparc\Vacancies\Models\Application;
 use Sparc\Vacancies\Models\Experience;
 use Sparc\Vacancies\Models\Qualification;
-use Sparc\Vacancies\Models\Requirement;
 use Sparc\Vacancies\Models\Responsibility;
 use Sparc\Vacancies\Models\Skill;
 use Sparc\Vacancies\Models\Vacancy;
@@ -45,7 +45,6 @@ $body = [
         ],
     ],
 ];
-
 
 test('creates an application to a vacancy', function () use ($body) {
     $vacancy = Vacancy::factory()->create();
@@ -104,8 +103,14 @@ describe('validation', function () use ($body) {
         $response->assertCreated();
     });
 
-    test('rejects late submission', function () {
+    test('rejects late submission', function () use ($body) {
+        $vacancy = Vacancy::factory()->create([
+            'expires_at' => Date::now()->subDays(2),
+        ]);
 
+        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+
+        $response->assertNotFound();
     });
 });
 
