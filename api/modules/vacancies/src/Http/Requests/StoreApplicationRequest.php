@@ -5,6 +5,7 @@ namespace Sparc\Vacancies\Http\Requests;
 use App\Enums\Gender;
 use Carbon\Carbon;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Sparc\Vacancies\Actions\CreateApplication;
@@ -30,9 +31,18 @@ class StoreApplicationRequest extends FormRequest
      */
     public function rules(): array
     {
+        /** @var Vacancy */
+        $vacancy = $this->route('vacancy');
+
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email'],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('applications')->where(function (Builder $query) use ($vacancy) {
+                    return $query->where('vacancy_id', $vacancy->id);
+                }),
+            ],
             'gender' => ['required', Rule::enum(Gender::class)],
             'date_of_birth' => ['required', 'date'],
             'bio' => ['required', 'string'],

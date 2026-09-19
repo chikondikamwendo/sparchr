@@ -46,52 +46,67 @@ $body = [
     ],
 ];
 
-function createVacancy(): Vacancy
-{
-    $vacancy = Vacancy::factory()->create();
-
-    Qualification::factory()->count(2)->create([
-        'qualificationable_id' => $vacancy->id,
-        'qualificationable_type' => Vacancy::class,
-    ]);
-
-    Responsibility::factory()->count(3)->create([
-        'responsibilitable_id' => $vacancy->id,
-        'responsibilitable_type' => Vacancy::class,
-    ]);
-
-    Requirement::factory()->for($vacancy)->count(3)->create();
-
-    return $vacancy;
-}
 
 test('creates an application to a vacancy', function () use ($body) {
-    $vacancy = createVacancy();
+    $vacancy = Vacancy::factory()->create();
 
     $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
 
     $response->assertCreated();
 
     $this->assertDatabaseCount(Application::class, 1);
-    $this->assertDatabaseCount(Qualification::class, 3);
-    $this->assertDatabaseCount(Responsibility::class, 5);
+    $this->assertDatabaseCount(Qualification::class, 1);
+    $this->assertDatabaseCount(Responsibility::class, 2);
     $this->assertDatabaseCount(Experience::class, 1);
     $this->assertDatabaseCount(Achievement::class, 1);
     $this->assertDatabaseCount(Skill::class, 3);
 });
 
-describe('validation', function () {
-    todo('requires name');
-    todo('requires email');
-    todo('requires email to be unique');
-    todo('email has to be unique for a single vacancy');
-    todo('requires gender');
-    todo('requires date of birth');
-    todo('requires bio');
-    todo('requires experiences');
-    todo('requires skills');
-    todo('requires qualifications');
-    todo('rejects late submission');
+describe('validation', function () use ($body) {
+    test('checks required fields', function () {
+        $vacancy = Vacancy::factory()->create();
+
+        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications');
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors([
+            'name',
+            'email',
+            'gender',
+            'date_of_birth',
+            'bio',
+            'experiences',
+            'skills',
+            'qualifications',
+        ]);
+
+        $this->assertDatabaseEmpty(Application::class);
+    });
+
+    test('requires email to be unique', function () use ($body) {
+        $vacancy = Vacancy::factory()->create();
+
+        Application::factory()->for($vacancy)->create(['email' => $body['email']]);
+
+        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+
+        $response->assertUnprocessable();
+        $response->assertJsonValidationErrors('email');
+    });
+
+    test('email has to be unique for a single vacancy', function () use ($body) {
+        $vacancy = Vacancy::factory()->create();
+
+        Application::factory()->create(['email' => $body['email']]);
+
+        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+
+        $response->assertCreated();
+    });
+
+    test('rejects late submission', function () {
+
+    });
 });
 
 describe('pipeline', function () {
