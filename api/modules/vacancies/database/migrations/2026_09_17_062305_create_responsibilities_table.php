@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('responsibilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vacancy_id')->constrained('vacancies')->cascadeOnDelete();
+            $table->morphs('responsibilitable');
             $table->string('title');
             $table->text('description')->nullable();
             $table->timestamps();
-
-            $table->index('vacancy_id');
         });
     }
 

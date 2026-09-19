@@ -62,4 +62,14 @@ class Application extends Model
     {
         return $this->morphMany(Qualification::class, 'qualificationable');
     }
+
+    /**
+     * Applicants experiences.
+     * 
+     * @return HasMany<Experience, $this>
+     */
+    public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
+    }
 }

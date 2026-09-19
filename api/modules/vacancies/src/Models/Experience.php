@@ -38,4 +38,14 @@ class Experience extends Model
     {
         return $this->belongsTo(Application::class);
     }
+
+    /**
+     * Expierence responsibilites.
+     * 
+     * @return MorphMany<Responsibility, $this>
+     */
+    public function responsibilities(): MorphMany
+    {
+        return $this->morphMany(Responsibility::class, 'responsibilitable');
+    }
 }

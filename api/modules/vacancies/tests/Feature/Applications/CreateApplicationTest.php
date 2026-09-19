@@ -53,7 +53,11 @@ function createVacancy(): Vacancy
         'qualificationable_type' => Vacancy::class,
     ]);
 
-    Responsibility::factory()->for($vacancy)->count(3)->create();
+    Responsibility::factory()->count(3)->create([
+        'responsibilitable_id' => $vacancy->id,
+        'responsibilitable_type' => Vacancy::class,
+    ]);
+
     Requirement::factory()->for($vacancy)->count(3)->create();
 
     return $vacancy;

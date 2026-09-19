@@ -27,10 +27,10 @@ use Sparc\Vacancies\Enums\Status;
  *
  * @method BelongsTo<User> user()
  * @method BelongsTo<Department> department()
- * @method HasMany<Responsibility> responsibilities()
  * @method HasMany<Requirement> requirements()
- * @method MorphMany<Qualification> qualifications()
  * @method HasMany<Application> applications()
+ * @method MorphMany<Responsibility> responsibilities()
+ * @method MorphMany<Qualification> qualifications()
  */
 class Vacancy extends Model
 {
@@ -83,11 +83,11 @@ class Vacancy extends Model
     /**
      * Responsibilities for this vacancy.
      *
-     * @return HasMany<Responsibility, $this>
+     * @return MorphMany<Responsibility, $this>
      */
-    public function responsibilities(): HasMany
+    public function responsibilities(): MorphMany
     {
-        return $this->hasMany(Responsibility::class);
+        return $this->morphMany(Responsibility::class, 'responsibilitable');
     }
 
     /**

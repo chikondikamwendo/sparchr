@@ -26,6 +26,24 @@ final class CreateApplication
                 $application->qualifications()->create($qualification);
             });
 
+            $props->experiences->each(function (array $experience) use ($application) {
+                $responsibilites = collect($experience['responsibilities']);
+                $achievements = collect($experience['achievements']);
+
+                $experience = $application->experiences()->create([
+                    'institution' => $experience['institution'],
+                    'position' => $experience['position'],
+                    'started_at' => $experience['started_at'],
+                    'ended_at' => $experience['ended_at'],
+                ]);
+
+                $responsibilites->each(function (string $responsibility) use ($experience) {
+                    $experience->responsibilities()->create([
+                        'title' => $responsibility,
+                    ]);
+                });
+            });
+
             return $application;
         });
 

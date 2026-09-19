@@ -19,7 +19,8 @@ class ResponsibilityFactory extends Factory
     public function definition(): array
     {
         return [
-            'vacancy_id' => Vacancy::factory(),
+            'responsibilitable_id' => Vacancy::factory(),
+            'responsibilitable_type' => Vacancy::class,
             'title' => fake()->sentence(),
             'description' => fake()->sentences(asText: true),
         ];

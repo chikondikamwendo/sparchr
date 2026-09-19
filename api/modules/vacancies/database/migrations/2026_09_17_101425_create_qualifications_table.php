@@ -22,7 +22,6 @@ return new class extends Migration
             $table->year('year')->nullable();
             $table->timestamps();
 
-            $table->index('vacancy_id');
             $table->index('field');
             $table->index('level');
         });
