@@ -2,6 +2,7 @@
 
 use Sparc\Vacancies\Enums\QualificationLevel;
 use Sparc\Vacancies\Models\Application;
+use Sparc\Vacancies\Models\Experience;
 use Sparc\Vacancies\Models\Qualification;
 use Sparc\Vacancies\Models\Requirement;
 use Sparc\Vacancies\Models\Responsibility;
