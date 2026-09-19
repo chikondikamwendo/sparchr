@@ -22,7 +22,9 @@ final class CreateApplication
                 'email' => $props->email,
             ]);
 
-            // ..
+            $props->qualifications->each(function (array $qualification) use ($application) {
+                $application->qualifications()->create($qualification);
+            });
 
             return $application;
         });

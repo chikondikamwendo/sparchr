@@ -52,4 +52,14 @@ class Application extends Model
     {
         return $this->belongsTo(Vacancy::class);
     }
+
+    /**
+     * Applicants qualifications.
+     * 
+     * @return MorphMany<Qualification, $this>
+     */
+    public function qualifications(): MorphMany
+    {
+        return $this->morphMany(Qualification::class, 'qualificationable');
+    }
 }

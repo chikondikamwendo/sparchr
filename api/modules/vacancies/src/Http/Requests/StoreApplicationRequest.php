@@ -64,9 +64,9 @@ class StoreApplicationRequest extends FormRequest
             Gender::from($this->gender),
             Carbon::parse($this->date_of_birth),
             $this->bio,
-            $this->experiences,
-            $this->skills,
-            $this->qualifications,
+            collect($this->experiences),
+            collect($this->skills),
+            collect($this->qualifications),
         ));
     }
 }
