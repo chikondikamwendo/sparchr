@@ -16,7 +16,7 @@ final class ScoreApplications
 
         $applications = Application::query()
             ->whereRelation('vacancy', 'status', '!=', VacancyStatus::CLOSED)
-            ->orWhereRelation('vacancy', 'staus', '!=', VacancyStatus::DRAFT)
+            ->orWhereRelation('vacancy', 'status', '!=', VacancyStatus::DRAFT)
             ->where('status', ApplicationStatus::PENDING_SCORE)
             ->with(['experiences', 'skills', 'qualifications'])
             ->limit(10)
