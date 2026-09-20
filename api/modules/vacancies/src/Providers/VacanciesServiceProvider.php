@@ -8,5 +8,8 @@ class VacanciesServiceProvider extends ServiceProvider
 {
     public function register(): void {}
 
-    public function boot(): void {}
+    public function boot(): void
+    {
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'vacancies');
+    }
 }

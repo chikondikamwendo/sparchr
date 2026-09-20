@@ -39,7 +39,7 @@ class ApplicationReceived extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'mail.application-received',
+            view: 'vacancies::mail.application-received',
             with: [
                 'vacancy' => $this->vacancy->title,
                 'applicant' => $this->applicant,
