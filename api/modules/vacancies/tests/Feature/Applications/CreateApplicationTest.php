@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Sparc\Vacancies\Enums\QualificationLevel;
+use Sparc\Vacancies\Enums\VacancyStatus;
 use Sparc\Vacancies\Mail\ApplicationReceived;
 use Sparc\Vacancies\Models\Achievement;
 use Sparc\Vacancies\Models\Application;
@@ -130,4 +131,14 @@ describe('pipeline', function () use ($body) {
 
         Mail::assertQueued(ApplicationReceived::class);
     });
+});
+
+test('can only apply to open vacancy', function () use ($body) {
+    $vacancy = Vacancy::factory()->create([
+        'status' => VacancyStatus::DRAFT,
+    ]);
+
+    $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
+
+    $response->assertNotFound();
 });

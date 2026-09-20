@@ -13,6 +13,7 @@ use Illuminate\Validation\Rule;
 use Sparc\Vacancies\Actions\CreateApplication;
 use Sparc\Vacancies\Data\CreateApplicationProps;
 use Sparc\Vacancies\Enums\QualificationLevel as Level;
+use Sparc\Vacancies\Enums\VacancyStatus;
 use Sparc\Vacancies\Models\Application;
 use Sparc\Vacancies\Models\Vacancy;
 
@@ -71,7 +72,10 @@ class StoreApplicationRequest extends FormRequest
      */
     public function persist(CreateApplication $action, Vacancy $vacancy): Application
     {
-        if ($vacancy->expires_at && Date::now()->isAfter($vacancy->expires_at)) {
+        $cannotApply = $vacancy->expires_at && Date::now()->isAfter($vacancy->expires_at)
+        || $vacancy->status !== VacancyStatus::OPEN;
+
+        if ($cannotApply) {
             throw new ModelNotFoundException('Vacancy not found or expired');
         }
 
