@@ -1,0 +1,157 @@
+{
+  "requests": [
+    {
+      "name": "Amara Banda",
+      "email": "amara.banda.api@example.com",
+      "gender": "Female",
+      "date_of_birth": "1991-04-18",
+      "bio": "Backend engineer with eight years of experience building financial and logistics platforms.",
+      "experiences": [
+        {
+          "institution": "CopperPay",
+          "position": "Lead Backend Engineer",
+          "started_at": "03-2019",
+          "ended_at": null,
+          "responsibilities": [
+            {
+              "title": "Led payment API development",
+              "description": "Managed delivery of secure payment and reconciliation services."
+            }
+          ],
+          "achievements": [
+            {
+              "title": "Reduced payment failures",
+              "description": "Improved retry handling and reduced failed payment requests by 28%."
+            }
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "title": "PHP and Laravel",
+          "description": "Advanced production experience."
+        },
+        {
+          "title": "PostgreSQL",
+          "description": "Schema design, query tuning, and operational troubleshooting."
+        },
+        {
+          "title": "Docker and AWS",
+          "description": "Containerized deployments and cloud operations."
+        }
+      ],
+      "qualifications": [
+        {
+          "field": "Computer Science",
+          "level": "Degree",
+          "year": "2014",
+          "institution": "University of Zambia"
+        }
+      ]
+    },
+    {
+      "name": "Nadia Phiri",
+      "email": "nadia.phiri.api@example.com",
+      "gender": "Female",
+      "date_of_birth": "1993-07-09",
+      "bio": "Product marketer who has launched SaaS products across Southern African markets.",
+      "experiences": [
+        {
+          "institution": "MarketBridge",
+          "position": "Product Marketing Lead",
+          "started_at": "08-2020",
+          "ended_at": null,
+          "responsibilities": [
+            {
+              "title": "Planned product launches",
+              "description": "Built launch plans, messaging, and enablement for new software features."
+            }
+          ],
+          "achievements": [
+            {
+              "title": "Increased qualified pipeline",
+              "description": "Improved campaign-sourced pipeline by 42% in one year."
+            }
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "title": "Go-to-market strategy",
+          "description": "Launch planning, positioning, and sales enablement."
+        },
+        {
+          "title": "Customer research",
+          "description": "Interviews, segmentation, and insight synthesis."
+        },
+        {
+          "title": "Content strategy",
+          "description": "Long-form, web, email, and campaign content."
+        }
+      ],
+      "qualifications": [
+        {
+          "field": "Marketing",
+          "level": "Degree",
+          "year": "2015",
+          "institution": "University of Malawi"
+        }
+      ]
+    },
+    {
+      "name": "Lydia Mwale",
+      "email": "lydia.mwale.api@example.com",
+      "gender": "Female",
+      "date_of_birth": "1995-09-14",
+      "bio": "Customer-focused support specialist experienced in SaaS troubleshooting and knowledge-base writing.",
+      "experiences": [
+        {
+          "institution": "CloudDesk",
+          "position": "Technical Support Specialist",
+          "started_at": "05-2019",
+          "ended_at": null,
+          "responsibilities": [
+            {
+              "title": "Supported SaaS customers",
+              "description": "Resolved account, integration, and workflow issues for business customers."
+            }
+          ],
+          "achievements": [
+            {
+              "title": "Improved first-contact resolution",
+              "description": "Raised first-contact resolution from 68% to 81%."
+            }
+          ]
+        }
+      ],
+      "skills": [
+        {
+          "title": "Customer troubleshooting",
+          "description": "Structured investigation and clear customer communication."
+        },
+        {
+          "title": "SQL basics",
+          "description": "Simple queries for support investigation and data validation."
+        },
+        {
+          "title": "Zendesk",
+          "description": "Ticket management, macros, and knowledge-base workflows."
+        }
+      ],
+      "qualifications": [
+        {
+          "field": "Information Technology",
+          "level": "Diploma",
+          "year": "2017",
+          "institution": "Evelyn Hone College"
+        }
+      ]
+    }
+  ],
+  "endpoint_template": "/api/v1/public/vacancies/{vacancy-slug}/applications",
+  "vacancy_slugs": [
+    "senior-backend-engineer",
+    "product-marketing-manager",
+    "technical-support-specialist"
+  ]
+}
