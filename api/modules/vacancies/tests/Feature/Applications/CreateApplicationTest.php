@@ -51,7 +51,7 @@ $body = [
 test('creates an application to a vacancy', function () use ($body) {
     $vacancy = Vacancy::factory()->create();
 
-    $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+    $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
 
     $response->assertCreated();
 
@@ -67,7 +67,7 @@ describe('validation', function () use ($body) {
     test('checks required fields', function () {
         $vacancy = Vacancy::factory()->create();
 
-        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications');
+        $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications');
 
         $response->assertUnprocessable();
         $response->assertJsonValidationErrors([
@@ -89,7 +89,7 @@ describe('validation', function () use ($body) {
 
         Application::factory()->for($vacancy)->create(['email' => $body['email']]);
 
-        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+        $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
 
         $response->assertUnprocessable();
         $response->assertJsonValidationErrors('email');
@@ -100,7 +100,7 @@ describe('validation', function () use ($body) {
 
         Application::factory()->create(['email' => $body['email']]);
 
-        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+        $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
 
         $response->assertCreated();
     });
@@ -110,7 +110,7 @@ describe('validation', function () use ($body) {
             'expires_at' => Date::now()->subDays(2),
         ]);
 
-        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+        $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
 
         $response->assertNotFound();
     });
@@ -124,7 +124,7 @@ describe('pipeline', function () use ($body) {
 
         Application::factory()->create(['email' => $body['email']]);
 
-        $response = $this->postJson('/v1/vacancies/'.$vacancy->slug.'/applications', $body);
+        $response = $this->postJson('/v1/public/vacancies/'.$vacancy->slug.'/applications', $body);
 
         $response->assertCreated();
 
