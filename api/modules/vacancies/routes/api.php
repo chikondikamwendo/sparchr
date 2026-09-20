@@ -6,6 +6,7 @@ use Sparc\Vacancies\Http\Controllers\PublicApplicationController;
 use Sparc\Vacancies\Http\Controllers\PublicVacancyController;
 use Sparc\Vacancies\Http\Controllers\QualificationController;
 use Sparc\Vacancies\Http\Controllers\RequirementController;
+use Sparc\Vacancies\Http\Controllers\ResolveVacancyController;
 use Sparc\Vacancies\Http\Controllers\ResponsibilityController;
 use Sparc\Vacancies\Http\Controllers\VacancyController;
 
@@ -20,6 +21,7 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('v1/vacancies')->group(functi
         Route::resource('/qualifications', QualificationController::class)->only(['store']);
         Route::patch('/applications/{application}', ApplicationController::class);
         Route::put('/applications/{application}', ApplicationController::class);
+        Route::get('/resolve', ResolveVacancyController::class);
     });
 });
 
