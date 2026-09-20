@@ -10,4 +10,13 @@ enum ApplicationStatus: string
     case WAITLISTED = 'Waitlisted';
     case ACCEPTED = 'Accepted';
     case REJECTED = 'Rejected';
+
+    public static function pending(): array
+    {
+        return [
+            self::IN_REVIEW,
+            self::PENDING_SCORE,
+            self::SHORTLISTED,
+        ];
+    }
 }

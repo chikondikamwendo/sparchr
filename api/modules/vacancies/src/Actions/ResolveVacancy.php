@@ -2,6 +2,7 @@
 
 namespace Sparc\Vacancies\Actions;
 
+use Sparc\Vacancies\Enums\ApplicationStatus;
 use Sparc\Vacancies\Enums\VacancyStatus;
 use Sparc\Vacancies\Models\Vacancy;
 
@@ -14,5 +15,9 @@ final class ResolveVacancy
         }
 
         $vacancy->update(['status' => VacancyStatus::CLOSED]);
+
+        $vacancy->applications()
+            ->whereIn('status', ApplicationStatus::pending())
+            ->update(['status' => ApplicationStatus::REJECTED]);
     }
 }
