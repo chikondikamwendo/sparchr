@@ -17,7 +17,7 @@ class ApplicationController
     }
 
     /** Store a newly created resource in storage. */
-    public function store(StoreApplicationRequest $request, Vacancy $vacancy): JsonResponse
+    public function __invoke(StoreApplicationRequest $request, Vacancy $vacancy): JsonResponse
     {
         $application = $request->persist($this->createApplicationAction, $vacancy);
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Sparc\Vacancies\Http\Controllers\ApplicationController;
+use Sparc\Vacancies\Http\Controllers\PublicVacancyController;
 use Sparc\Vacancies\Http\Controllers\QualificationController;
 use Sparc\Vacancies\Http\Controllers\RequirementController;
 use Sparc\Vacancies\Http\Controllers\ResponsibilityController;
@@ -19,6 +20,7 @@ Route::middleware(['api', 'auth:sanctum'])->prefix('v1/vacancies')->group(functi
     });
 });
 
-Route::middleware(['api'])->prefix('v1/vacancies')->group(function () {
-    Route::post('/{vacancy}/applications', [ApplicationController::class, 'store']);
+Route::middleware(['api'])->prefix('v1/public')->group(function () {
+    Route::resource('/vacancies', PublicVacancyController::class)->only(['index']);
+    Route::post('/vacancies/{vacancy}/applications', ApplicationController::class);
 });
