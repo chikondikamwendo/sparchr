@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Sparc\Vacancies\Http\Requests\StoreVacancyRequest;
+use Sparc\Vacancies\Http\Requests\UpdateVacancyRequest;
 use Sparc\Vacancies\Http\Resources\QualificationResource;
 use Sparc\Vacancies\Http\Resources\RequirementResource;
 use Sparc\Vacancies\Http\Resources\ResponsibilityResource;
@@ -65,9 +66,13 @@ class VacancyController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Vacancy $vacancy)
+    public function update(UpdateVacancyRequest $request, Vacancy $vacancy): JsonResponse
     {
-        //
+        $request->persist($vacancy);
+
+        $vacancy->refresh();
+
+        return Response::json(VacancyResource::make($vacancy));
     }
 
     /**
