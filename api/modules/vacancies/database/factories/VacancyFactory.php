@@ -5,6 +5,7 @@ namespace Sparc\Vacancies\Database\Factories;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Sparc\Vacancies\Enums\VacancyStatus;
 use Sparc\Vacancies\Models\Vacancy;
 
 /**
@@ -25,6 +26,7 @@ class VacancyFactory extends Factory
             'slug' => fake()->unique()->slug(),
             'title' => fake()->sentence(),
             'brief' => fake()->sentences(asText: true),
+            'status' => VacancyStatus::OPEN,
         ];
     }
 }
