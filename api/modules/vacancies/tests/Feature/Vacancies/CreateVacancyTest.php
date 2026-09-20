@@ -3,7 +3,7 @@
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
-use Sparc\Vacancies\Enums\Status;
+use Sparc\Vacancies\Enums\VacancyStatus;
 use Sparc\Vacancies\Models\Vacancy;
 
 $data = [
@@ -26,7 +26,7 @@ test('user can create a vacancy', function () use ($data) {
         'slug' => $data['slug'],
         'title' => $data['title'],
         'brief' => $data['brief'],
-        'status' => Status::DRAFT,
+        'status' => VacancyStatus::DRAFT,
     ]);
 });
 

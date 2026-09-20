@@ -130,6 +130,4 @@ describe('pipeline', function () use ($body) {
 
         Mail::assertQueued(ApplicationReceived::class);
     });
-
-    todo('scores application');
 });
