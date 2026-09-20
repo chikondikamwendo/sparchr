@@ -2,6 +2,7 @@
 
 namespace Sparc\Vacancies\Actions;
 
+use Illuminate\Support\Facades\Config;
 use Sparc\Vacancies\Ai\Agents\Recruiter;
 use Sparc\Vacancies\Enums\ApplicationStatus;
 use Sparc\Vacancies\Enums\VacancyStatus;
@@ -45,7 +46,11 @@ final class ScoreApplications
             ),
         ])->toJson();
 
-        $response = $recruiter->prompt('Examine and score the following applications: '.$json);
+        $response = $recruiter->prompt(
+            'Examine and score the following applications: '.$json,
+            model: Config::get('ai.model'),
+        );
+
         $results = collect($response['results'] ?? []);
 
         $results->each(function (array $result) use ($applications) {

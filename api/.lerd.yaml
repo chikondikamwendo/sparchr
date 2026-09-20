@@ -9,4 +9,3 @@ services:
   - redis
 workers:
   - queue
-  - schedule
