@@ -12,7 +12,7 @@ final class ResolveVacancy
 {
     public function handle(Vacancy $vacancy)
     {
-        if ($vacancy->status === VacancyStatus::CLOSED) {
+        if ($vacancy->status === VacancyStatus::CLOSED || $vacancy->status === VacancyStatus::CANCELED) {
             return;
         }
 
