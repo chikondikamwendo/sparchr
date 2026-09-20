@@ -67,3 +67,12 @@ test('broadcasts result emails', function () {
 
     Queue::assertPushed(BroadcastVacancyResults::class);
 });
+
+describe('authentication & authorization', function () {
+    test('requires authentication', function () {
+        $this->getJson('/v1/vacancies/test-vacancy/resolve')
+            ->assertUnauthorized();
+    });
+
+    todo('requires permission');
+});
