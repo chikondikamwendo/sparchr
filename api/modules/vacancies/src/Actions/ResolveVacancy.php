@@ -2,8 +2,10 @@
 
 namespace Sparc\Vacancies\Actions;
 
+use Illuminate\Support\Facades\DB;
 use Sparc\Vacancies\Enums\ApplicationStatus;
 use Sparc\Vacancies\Enums\VacancyStatus;
+use Sparc\Vacancies\Jobs\BroadcastVacancyResults;
 use Sparc\Vacancies\Models\Vacancy;
 
 final class ResolveVacancy
@@ -14,10 +16,14 @@ final class ResolveVacancy
             return;
         }
 
-        $vacancy->update(['status' => VacancyStatus::CLOSED]);
+        DB::transaction(function () use ($vacancy) {
+            $vacancy->update(['status' => VacancyStatus::CLOSED]);
 
-        $vacancy->applications()
-            ->whereIn('status', ApplicationStatus::pending())
-            ->update(['status' => ApplicationStatus::REJECTED]);
+            $vacancy->applications()
+                ->whereIn('status', ApplicationStatus::pending())
+                ->update(['status' => ApplicationStatus::REJECTED]);
+        });
+
+        BroadcastVacancyResults::dispatch($vacancy);
     }
 }

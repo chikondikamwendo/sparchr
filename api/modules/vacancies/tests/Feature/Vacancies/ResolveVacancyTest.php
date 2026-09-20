@@ -1,8 +1,10 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Queue;
 use Sparc\Vacancies\Enums\ApplicationStatus;
 use Sparc\Vacancies\Enums\VacancyStatus;
+use Sparc\Vacancies\Jobs\BroadcastVacancyResults;
 use Sparc\Vacancies\Models\Application;
 use Sparc\Vacancies\Models\Vacancy;
 
@@ -49,4 +51,19 @@ test('changes pending applications status to rejected if not changed', function 
     expect($rejectedApplicationsCount)->toBe(6);
 });
 
-todo('broadcasts result emails');
+test('broadcasts result emails', function () {
+    Queue::fake();
+
+    $user = User::factory()->create();
+    $vacancy = Vacancy::factory()->for($user)->create();
+
+    Application::factory()->for($vacancy)->count(3)->create([
+        'status' => ApplicationStatus::IN_REVIEW,
+    ]);
+
+    $response = $this->actingAs($user)->getJson('/v1/vacancies/'.$vacancy->slug.'/resolve');
+
+    $response->assertNoContent();
+
+    Queue::assertPushed(BroadcastVacancyResults::class);
+});
